@@ -1,0 +1,67 @@
+
+Key Entities:
+
+Patients – Unique patients identified by their unique identifiers.
+Symptoms – Health conditions/indicators related to the patients.
+Conditions – Diagnosed conditions or disorders.
+Encounters – Health encounters or visits, linked to patients and conditions.
+Medications – Medications prescribed to patients during encounters.
+
+
+Relationships:
+
+Patients ↔ Symptoms: A patient may have multiple symptoms, which are recorded during encounters.
+Patients ↔ Conditions: A patient can have several diagnosed conditions.
+Patients ↔ Encounters: A patient may have multiple encounters.
+Encounters ↔ Symptoms/Conditions/Medications: Each encounter is associated with certain symptoms, conditions, and prescribed medications.
+Medications ↔ Conditions: Certain medications are prescribed to treat specific conditions.
+
+
+Diagram Elements:
+
+Patients Table will link to Encounters through patient_id.
+Encounters Table will link to Conditions and Medications through encounter_id.
+Medications Table will also link to Conditions, as certain medications are prescribed to treat specific conditions.
+
+
+
+
+Diagram Overview (in a text-based format):
+
++--------------------+             +-------------------+
+|     Patients       |<----------- |    Encounters     |
+|--------------------|             |-------------------|
+| patient_id         |             | encounter_id      |
+| name               |             | patient_id        |
+| age                |             | start_time        |
+| gender             |             | end_time          |
+| ...                |             | ...               |
++--------------------+             +-------------------+
+            |                           |
+            |                           |
+            V                           V
++--------------------+             +-------------------+
+|     Symptoms       |             |     Conditions    |
+|--------------------|             |-------------------|
+| symptom_id         |<----------- | condition_id      |
+| patient_id         |             | patient_id        |
+| description        |             | condition_code    |
+| severity           |             | description       |
++--------------------+             +-------------------+
+            |                           |
+            |                           |
+            V                           V
++--------------------+             +-------------------+
+|    Medications     |<----------- |  Medications - Conditions |
+|--------------------|             |-------------------|
+| medication_id      |             | medication_id     |
+| patient_id         |             | condition_id      |
+| medication_name    |             | dosage            |
+| dosage             |             | frequency         |
+| start_date         |             | duration          |
++--------------------+             +-------------------+
+
+
+
+
+

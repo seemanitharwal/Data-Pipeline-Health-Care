@@ -1,0 +1,132 @@
+Data Quality Issues:
+
+
+1. Patients Table
+
+
+This table contains information related to patients, such as patient_id, name, age, gender, and other demographic data.
+
+Data Quality Issues:
+
+Missing Data:
+    age, gender, or name could be missing for some patients. It is crucial to handle these missing values properly, either by imputing or flagging them for further review.
+    Missing or incomplete contact details like phone number, address, or email may make it difficult to communicate with the patient.
+
+Duplicate Records:
+    Patients might be accidentally entered multiple times in the system with different identifiers or slight variations in the spelling of their names.
+    Duplicate patient_id entries due to data entry errors.
+
+Inconsistent Data:
+    Inconsistent formats in names (e.g., "John Doe" vs "john doe" vs "JOHN DOE").
+    age might be entered as text in some records (e.g., "25" vs "Twenty-five") or might be inconsistent with the date of birth.
+    Missing or inconsistent gender data (e.g., gender could have entries such as "Male", "M", "Female", "F", or even NULL).
+
+Outliers/Errors:
+    The age field might have unrealistic values, like negative numbers or an abnormally high age (e.g., 150 years old).
+    Invalid values in the gender field (e.g., any entry other than Male/Female or valid alternatives like Non-binary).
+
+Data Integrity:
+    There might be mismatches between patient_id and other tables, such as encounter_id or medication_id, if foreign keys are not set up correctly.
+
+
+
+2. Encounters Table
+
+The Encounters table contains details about each health encounter (e.g., appointment, visit, consultation) with the fields encounter_id, patient_id, start_time, end_time, etc.
+
+Data Quality Issues:
+
+Missing Data:
+    start_time or end_time could be missing. Missing timestamps can cause confusion in the record's timeline.
+    Missing patient_id for some encounters, leading to encounters that are not linked to a patient.
+
+Duplicate Records:
+    Encounters could be duplicated due to issues in the data entry or system synchronization.
+
+Incorrect Data Formats:
+    start_time or end_time might be recorded in inconsistent date formats (e.g., MM/DD/YYYY vs. YYYY-MM-DD).
+    The encounter_id might not follow a consistent format or be improperly incremented.
+
+Overlapping or Inconsistent Dates:
+    Encounters for the same patient may have overlapping start_time and end_time values (e.g., a patient may be scheduled for two encounters at the same time).
+    The end_time should be greater than start_time; any data where end_time is earlier than start_time needs to be reviewed.
+
+Unlinked Data:
+    Missing or incorrect foreign keys (e.g., the patient_id might not be correctly linked to the patients table).
+    The encounter_id might not be consistently referenced in the Symptoms, Conditions, or Medications tables.
+
+
+3. Symptoms Table
+
+
+The Symptoms table contains information about the symptoms observed for a patient, such as symptom_id, patient_id, description, and severity.
+
+Data Quality Issues:
+
+Missing or Incomplete Descriptions:
+    Symptoms may have empty or partial description fields, leading to missing or unclear information about what the symptom actually is.
+    severity might be missing, or inconsistent (e.g., some records might use a numeric scale while others use a descriptive scale like "Mild", "Moderate", "Severe").
+
+Inconsistent Terminology:
+    The same symptom may be described using different terms (e.g., "headache" vs. "migraine" or "fever" vs. "temperature rise").
+    Inconsistent severity scale (numeric vs. text-based, e.g., "1" vs. "Mild").
+
+Duplicate Symptoms:
+    A symptom may be recorded multiple times for the same patient under different encounter IDs.
+
+Missing Patient Link:
+    Some symptoms might be missing the patient_id, making it impossible to link them back to a patient.
+
+
+
+4. Conditions Table
+
+
+The Conditions table contains the diagnosed conditions for each patient, such as condition_id, patient_id, condition_code, and description.
+
+Data Quality Issues:
+
+Missing Data:
+    Missing or null condition_code or description. A condition code or diagnosis might be required but is missing, leading to incomplete records.
+
+Code Inconsistencies:
+    condition_code might not follow a standardized medical coding system, like ICD-10 codes. It might have partial codes or invalid codes.
+    Inconsistent mappings for conditions that overlap in their diagnosis, such as the same condition being represented by different codes in different entries.
+
+Duplicate Conditions:
+    A patient might have the same condition entered multiple times under different encounter_id entries, leading to redundancy.
+
+Missing or Inconsistent Patient Link:
+    Missing patient_id might result in conditions that aren't linked to any patient, or there could be discrepancies between patient_id in the Patients and Conditions tables.
+    
+Outdated or Invalid Conditions:
+    Old condition codes that no longer apply, or conditions that were misdiagnosed but still recorded.
+
+
+
+5. Medications Table
+
+
+The Medications table contains information about the medications prescribed to the patient, such as medication_id, patient_id, medication_name, dosage, start_date, and end_date.
+
+Data Quality Issues:
+
+Missing Data:
+    Missing medication_name, dosage, or start_date. A prescription record without the name of the medication or the dosage information would be incomplete.
+
+Incorrect Dosage:
+    Dosages may be recorded in inconsistent units (e.g., "mg", "ml", "tablet", etc.), or may be missing entirely. Additionally, dosages might be out of the expected range.
+
+Overlapping Prescriptions:
+    A patient may be prescribed two medications that shouldn’t overlap or are for the same condition but entered as separate records.
+    Medications that have overlapping start_date and end_date may indicate that the prescriptions were not handled properly.
+
+Inconsistent Medication Names:
+    Variations in spelling or naming of medications (e.g., "Aspirin" vs "acetylsalicylic acid").
+    Generic vs brand names (e.g., "Ibuprofen" vs "Advil").
+    
+Unclear Medication Duration:
+    Missing or incorrect end_date may result in medications that appear to be ongoing indefinitely.
+
+Data Integrity Issues:
+    Missing links between medications and diagnoses, meaning certain medications are not explicitly tied to a condition, which could confuse the treatment records.

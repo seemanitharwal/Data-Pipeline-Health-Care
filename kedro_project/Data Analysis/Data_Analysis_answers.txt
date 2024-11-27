@@ -1,0 +1,10 @@
+a. How many distinct patients are in the dataset?
+
+    20000
+
+
+d. What percentage of patients have all 4 symptom categories ≥ 30?
+
+    Percentage of patients with the sum of all symptoms ≥ 30: 4.69%
+
+    Percentage of patients with all symptoms ≥ 30: 0.00%
