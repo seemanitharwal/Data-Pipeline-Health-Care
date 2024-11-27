@@ -93,6 +93,5 @@ This will load data from the files specified, clean and structure it, merge it i
 
 Notes:
     Ensure that MongoDB is running and accessible before executing the pipeline.
-    You can add more data transformation steps or additional sources based on project requirements.
-
-    Modify the data structure functions (structure_patient_data, structure_symptoms, etc.) to handle your specific dataset needs.
+    Giving MONGO DB URL in code is must to run pipeline.
+    We can add more data transformation steps or additional sources based on project requirements.
